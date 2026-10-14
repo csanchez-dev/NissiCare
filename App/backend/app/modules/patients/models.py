@@ -3,7 +3,7 @@ from __future__ import annotations
 from datetime import date
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ARRAY, String
+from sqlalchemy import JSON, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from app.core.database import Base
@@ -22,9 +22,9 @@ class Patient(Base):
     sex: Mapped[str] = mapped_column(String(1))
     phone: Mapped[str | None] = mapped_column(String(40))
     blood_type: Mapped[str | None] = mapped_column(String(5))
-    allergies: Mapped[list[str]] = mapped_column(ARRAY(String), default=list)
-    conditions: Mapped[list[str]] = mapped_column(ARRAY(String), default=list)
-    medications: Mapped[list[str]] = mapped_column(ARRAY(String), default=list)
+    allergies: Mapped[list[str]] = mapped_column(JSON, default=list)
+    conditions: Mapped[list[str]] = mapped_column(JSON, default=list)
+    medications: Mapped[list[str]] = mapped_column(JSON, default=list)
 
     consultations: Mapped[list[Consultation]] = relationship(
         back_populates="patient",
